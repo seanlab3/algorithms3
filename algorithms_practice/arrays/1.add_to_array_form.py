@@ -27,6 +27,33 @@ Input: A = [9,9,9,9,9,9,9,9,9,9], K = 1
 Output: [1,0,0,0,0,0,0,0,0,0,0]
 Explanation: 9999999999 + 1 = 10000000000
 '''
+def add_to_array_form(A, K):
+    return [int(x) for x in str(int(''.join(str(x) for x in A)) + K)]
+
+def add_to_array_form(A, K):
+    carry, index = 0, len(A) - 1
+
+    while K or carry:
+        if index < 0: break
+        A[index] += K % 10 + carry
+        carry = A[index] // 10
+        A[index] %= 10
+        K //= 10
+        index -= 1
+
+    k_list = []
+    while K or carry:
+        digit = K % 10 + carry
+        k_list.append(digit % 10)
+        carry = digit // 10
+        K //= 10
+
+    return k_list[::-1] + A
+
+A = [9,9,9,9,9,9,9,9,9,9]
+K = 1
+print(add_to_array_form(A,K))
+
 from algorithms3.arrays import add_to_array_form
 A = [9,9,9,9,9,9,9,9,9,9]
 K = 1
